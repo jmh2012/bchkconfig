@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# $1 - init file, $2 - on/off, $3 - runlevel (opt)
+
+if [ $# -eq 3 ]
+then
+  if [ $2 = "off" ]
+  then
+    rm /etc/rc.d/rc$3.d/???$1
+    exit 0
+  fi
+  if [ $2 = "on" ]
+  then
+    case $3 in
+    0)
+      ln -s "/etc/init.d/$1" "/etc/rc.d/rc$3.d/K50$1"
+      ;;
+    1)
+      ln -s "/etc/init.d/$1" "/etc/rc.d/rc$3.d/K50$1"
+      ;;
+    6)
+      ln -s "/etc/init.d/$1" "/etc/rc.d/rc$3.d/K50$1"
+      ;;
+    *)
+      ln -s "/etc/init.d/$1" "/etc/rc.d/rc$3.d/S50$1"
+      ;;
+    esac
+   exit 0
+   fi
+   exit 1
+fi
+
+if [ $2 = "off" ]
+then
+  for i in {0..6}
+  do
+    rm "/etc/rc.d/rc$i.d/???$1"
+  done
+  exit 0
+fi
+
+if [ $2 = "on" ]
+then
+  # Start up init scripts.
+  for i in {2..5}
+  do
+    ln -s "/etc/init.d/$1" "/etc/rc.d/rc$i.d/S50$1"
+  done
+  # Shutdown init scripts.
+  for i in {0 1 6}
+    ln -s "/etc/init.d/$1" "/etc/rc.d/rc$i.d/K50$1"
+  done
+  exit 0
+fi

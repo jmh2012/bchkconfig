@@ -1,6 +1,6 @@
 # bchkconfig
 
-Re-implementation of `chkconfig` in bash. This was written to be used in a Linux From Scratch 10.0 System V installation, since `chkconfig` is not included in the base system.
+Re-implementation of `chkconfig` in bash. This was written to be used in a Linux From Scratch 10.0 SystemV installation, since `chkconfig` is not included in the base system.
 
 ## Installation
 

@@ -6,7 +6,7 @@ if [ $# -eq 3 ]
 then
   if [ "$2" = "off" ]
   then
-    rm /etc/rc.d/rc$3.d/???$1
+    rm "/etc/rc.d/rc$3.d/???$1"
     exit 0
   fi
   if [ "$2" = "on" ]

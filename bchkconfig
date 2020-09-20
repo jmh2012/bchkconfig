@@ -4,12 +4,12 @@
 
 if [ $# -eq 3 ]
 then
-  if [ $2 = "off" ]
+  if [ "$2" = "off" ]
   then
     rm /etc/rc.d/rc$3.d/???$1
     exit 0
   fi
-  if [ $2 = "on" ]
+  if [ "$2" = "on" ]
   then
     case $3 in
     0)
@@ -30,7 +30,7 @@ then
    exit 1
 fi
 
-if [ $2 = "off" ]
+if [ "$2" = "off" ]
 then
   for i in {0..6}
   do
@@ -39,7 +39,7 @@ then
   exit 0
 fi
 
-if [ $2 = "on" ]
+if [ "$2" = "on" ]
 then
   # Start up init scripts.
   for i in {2..5}
@@ -47,7 +47,8 @@ then
     ln -s "/etc/init.d/$1" "/etc/rc.d/rc$i.d/S50$1"
   done
   # Shutdown init scripts.
-  for i in {0 1 6}
+  for i in {0,1,6}
+  do
     ln -s "/etc/init.d/$1" "/etc/rc.d/rc$i.d/K50$1"
   done
   exit 0
